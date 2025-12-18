@@ -14,6 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gymladz.ui.theme.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
 fun ProfileScreen(
@@ -49,14 +51,21 @@ fun ProfileScreen(
                     fontSize = 24.sp,
                     color = TextPrimary
                 )
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = "Profile",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = TextPrimary
+                    )
+                    Text(
+                        text = getCurrentProfileDate(),
+                        fontSize = 12.sp,
+                        color = TextSecondary
+                    )
+                }
                 Text(
-                    text = "Profile",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = TextPrimary
-                )
-                Text(
-                    text = "⚙️",
+                    text = "✏️",
                     fontSize = 24.sp
                 )
             }
@@ -81,14 +90,14 @@ fun ProfileScreen(
             
             // Name
             Text(
-                text = "Rachel",
+                text = System.getProperty("user.name")?.capitalize() ?: "User",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = TextPrimary
             )
             
             Text(
-                text = "Fitness Enthusiast",
+                text = "Member since ${getCurrentYear()}",
                 fontSize = 16.sp,
                 color = TextSecondary
             )
@@ -254,4 +263,15 @@ fun GoalItem(
             trackColor = BackgroundLight
         )
     }
+}
+
+// Helper Functions
+private fun getCurrentProfileDate(): String {
+    val dateFormat = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
+    return dateFormat.format(Date())
+}
+
+private fun getCurrentYear(): String {
+    val calendar = Calendar.getInstance()
+    return calendar.get(Calendar.YEAR).toString()
 }

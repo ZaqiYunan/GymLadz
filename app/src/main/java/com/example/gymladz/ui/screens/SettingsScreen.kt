@@ -12,11 +12,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gymladz.ui.theme.*
+import androidx.compose.ui.platform.LocalContext
+import com.example.gymladz.data.user.UserRepository
+import kotlinx.coroutines.launch
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun SettingsScreen(
+    onLogout: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val userRepository = remember { UserRepository(context) }
+    val scope = rememberCoroutineScope()
+    val currentUsername by userRepository.currentUsername.collectAsState(initial = null)
+    
     var notificationsEnabled by remember { mutableStateOf(true) }
     var darkModeEnabled by remember { mutableStateOf(false) }
     
@@ -59,6 +69,40 @@ fun SettingsScreen(
             }
             
             Spacer(modifier = Modifier.height(32.dp))
+            
+            // User Info
+            currentUsername?.let { username ->
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.cardColors(containerColor = SurfaceWhite),
+                    elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(20.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Text(text = "👤", fontSize = 40.sp)
+                        Column {
+                            Text(
+                                text = "Logged in as",
+                                fontSize = 13.sp,
+                                color = TextSecondary
+                            )
+                            Text(
+                                text = username,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = TextPrimary
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+            }
             
             // Settings Sections
             SettingsSection(title = "Preferences") {
@@ -136,6 +180,32 @@ fun SettingsScreen(
                     icon = "ℹ️",
                     title = "About",
                     subtitle = "Version 1.0.0"
+                )
+            }
+            
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            // Logout Button
+            Button(
+                onClick = {
+                    scope.launch {
+                        userRepository.logout()
+                        onLogout()
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFFE53935)
+                )
+            ) {
+                Text(
+                    text = "LOGOUT",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
                 )
             }
         }

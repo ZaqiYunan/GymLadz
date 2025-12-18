@@ -57,63 +57,175 @@ class ExerciseRepository {
         "Flexibility"
     )
     
-    private fun getEmojiForCategory(category: String): String = when (category) {
-        "Arms" -> "💪"
-        "Legs" -> "🦵"
-        "Abs" -> "🧘"
-        "Chest" -> "🏋️"
-        "Back" -> "🏋️"
-        "Shoulders" -> "💪"
-        "Calves" -> "🦵"
-        "Cardio" -> "🏃"
-        else -> "🤸"
+    private fun getFallbackExercises(): List<Exercise> {
+        return listOf(
+            // Upper Body - Push Movements
+            Exercise(
+                id = 1,
+                name = "Push-ups",
+                category = "Strength",
+                duration = 15,
+                calories = 120,
+                difficulty = Difficulty.BEGINNER,
+                emoji = "💪"
+            ),
+            Exercise(
+                id = 2,
+                name = "Diamond Push-ups",
+                category = "Strength",
+                duration = 12,
+                calories = 100,
+                difficulty = Difficulty.INTERMEDIATE,
+                emoji = "💎"
+            ),
+            Exercise(
+                id = 3,
+                name = "Wide Push-ups",
+                category = "Strength",
+                duration = 15,
+                calories = 130,
+                difficulty = Difficulty.BEGINNER,
+                emoji = "🦅"
+            ),
+            
+            // Lower Body - Squats
+            Exercise(
+                id = 4,
+                name = "Squats",
+                category = "Strength",
+                duration = 20,
+                calories = 150,
+                difficulty = Difficulty.BEGINNER,
+                emoji = "🏋️"
+            ),
+            Exercise(
+                id = 5,
+                name = "Jump Squats",
+                category = "Cardio",
+                duration = 15,
+                calories = 180,
+                difficulty = Difficulty.INTERMEDIATE,
+                emoji = "🚀"
+            ),
+            Exercise(
+                id = 6,
+                name = "Sumo Squats",
+                category = "Strength",
+                duration = 18,
+                calories = 140,
+                difficulty = Difficulty.BEGINNER,
+                emoji = "🤺"
+            ),
+            
+            // Core - Planks
+            Exercise(
+                id = 7,
+                name = "Plank",
+                category = "Flexibility",
+                duration = 10,
+                calories = 80,
+                difficulty = Difficulty.BEGINNER,
+                emoji = "🧘"
+            ),
+            Exercise(
+                id = 8,
+                name = "Side Plank",
+                category = "Flexibility",
+                duration = 12,
+                calories = 90,
+                difficulty = Difficulty.INTERMEDIATE,
+                emoji = "🌟"
+            ),
+            
+            // Lower Body - Lunges
+            Exercise(
+                id = 9,
+                name = "Lunges",
+                category = "Strength",
+                duration = 15,
+                calories = 130,
+                difficulty = Difficulty.BEGINNER,
+                emoji = "🦵"
+            ),
+            Exercise(
+                id = 10,
+                name = "Jump Lunges",
+                category = "Cardio",
+                duration = 12,
+                calories = 160,
+                difficulty = Difficulty.ADVANCED,
+                emoji = "⚡"
+            ),
+            
+            // Cardio
+            Exercise(
+                id = 11,
+                name = "Jumping Jacks",
+                category = "Cardio",
+                duration = 10,
+                calories = 100,
+                difficulty = Difficulty.BEGINNER,
+                emoji = "🎯"
+            ),
+            Exercise(
+                id = 12,
+                name = "High Knees",
+                category = "Cardio",
+                duration = 10,
+                calories = 110,
+                difficulty = Difficulty.BEGINNER,
+                emoji = "🏃"
+            ),
+            Exercise(
+                id = 13,
+                name = "Mountain Climbers",
+                category = "Cardio",
+                duration = 12,
+                calories = 140,
+                difficulty = Difficulty.INTERMEDIATE,
+                emoji = "⛰️"
+            ),
+            
+            // Core - Dynamic
+            Exercise(
+                id = 14,
+                name = "Crunches",
+                category = "Flexibility",
+                duration = 15,
+                calories = 90,
+                difficulty = Difficulty.BEGINNER,
+                emoji = "📐"
+            ),
+            Exercise(
+                id = 15,
+                name = "Bicycle Crunches",
+                category = "Flexibility",
+                duration = 12,
+                calories = 110,
+                difficulty = Difficulty.INTERMEDIATE,
+                emoji = "🚴"
+            ),
+            
+            // Advanced Full Body
+            Exercise(
+                id = 16,
+                name = "Burpees",
+                category = "Cardio",
+                duration = 15,
+                calories = 200,
+                difficulty = Difficulty.ADVANCED,
+                emoji = "🔥"
+            )
+        )
     }
     
-    private fun getFallbackExercises(): List<Exercise> = listOf(
-        Exercise(
-            id = 1,
-            name = "Morning Run",
-            category = "Cardio",
-            duration = 30,
-            calories = 300,
-            difficulty = Difficulty.BEGINNER,
-            emoji = "🏃"
-        ),
-        Exercise(
-            id = 2,
-            name = "Cycling",
-            category = "Cardio",
-            duration = 45,
-            calories = 400,
-            difficulty = Difficulty.INTERMEDIATE,
-            emoji = "🚴"
-        ),
-        Exercise(
-            id = 3,
-            name = "Push-ups",
-            category = "Strength",
-            duration = 15,
-            calories = 100,
-            difficulty = Difficulty.BEGINNER,
-            emoji = "💪"
-        ),
-        Exercise(
-            id = 4,
-            name = "Yoga Flow",
-            category = "Flexibility",
-            duration = 30,
-            calories = 150,
-            difficulty = Difficulty.BEGINNER,
-            emoji = "🧘"
-        ),
-        Exercise(
-            id = 5,
-            name = "Weight Training",
-            category = "Strength",
-            duration = 60,
-            calories = 450,
-            difficulty = Difficulty.ADVANCED,
-            emoji = "🏋️"
-        )
-    )
+    private fun getEmojiForCategory(category: String): String {
+        return when (category.lowercase()) {
+            "arms", "chest", "shoulders" -> "💪"
+            "legs", "calves" -> "🦵"
+            "abs", "back" -> "🧘"
+            "cardio" -> "🏃"
+            else -> "🏋️"
+        }
+    }
 }

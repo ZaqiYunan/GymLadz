@@ -1,6 +1,7 @@
 package com.example.gymladz.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -58,37 +59,14 @@ fun BottomNavBar(
                 onClick = { onTabSelected(1) }
             )
             NavItem(
-                icon = "⚙️",
+                icon = "📷",
                 isSelected = selectedTab == 2,
                 onClick = { onTabSelected(2) }
             )
             NavItem(
-                icon = "💬",
+                icon = "⚙️",
                 isSelected = selectedTab == 3,
                 onClick = { onTabSelected(3) }
-            )
-        }
-        
-        // Floating Action Button
-        Box(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .offset(y = (-28).dp)
-                .size(56.dp)
-                .shadow(
-                    elevation = 8.dp,
-                    shape = CircleShape
-                )
-                .background(
-                    color = OrangePeach,
-                    shape = CircleShape
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "➕",
-                fontSize = 24.sp,
-                color = TextLight
             )
         }
     }
@@ -103,7 +81,8 @@ fun NavItem(
 ) {
     Box(
         modifier = modifier
-            .size(48.dp),
+            .size(48.dp)
+            .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
         Text(

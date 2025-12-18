@@ -31,14 +31,14 @@ fun CommunityScreen(
 ) {
     val messages = remember {
         listOf(
-            ChatMessage(1, "Mike", "Just finished my morning run! 🏃", "9:30 AM"),
-            ChatMessage(2, "Sarah", "Great job! How many km?", "9:32 AM"),
-            ChatMessage(3, "Mike", "5km in 25 minutes!", "9:33 AM"),
-            ChatMessage(4, "Rachel", "That's awesome! Keep it up 💪", "9:35 AM", true),
-            ChatMessage(5, "John", "Anyone up for a workout session?", "9:40 AM"),
-            ChatMessage(6, "Emma", "I'm in! What time?", "9:42 AM"),
-            ChatMessage(7, "John", "How about 6 PM at the gym?", "9:43 AM"),
-            ChatMessage(8, "Rachel", "Count me in! 🎯", "9:45 AM", true)
+            ChatMessage(1, "Mike", "Just crushed my morning workout! 💪", "8:45 AM"),
+            ChatMessage(2, "Sarah", "Nice! What did you do?", "8:47 AM"),
+            ChatMessage(3, "Mike", "5K run + strength training", "8:48 AM"),
+            ChatMessage(4, "You", "That's awesome! Keep it up 🔥", "8:50 AM", true),
+            ChatMessage(5, "John", "Anyone hitting the gym today?", "9:15 AM"),
+            ChatMessage(6, "Emma", "I'm planning to go at 6 PM", "9:17 AM"),
+            ChatMessage(7, "You", "Count me in! See you there 👍", "9:20 AM", true),
+            ChatMessage(8, "Sarah", "Don't forget to hydrate everyone! 💧", "9:25 AM")
         )
     }
     
@@ -75,14 +75,14 @@ fun CommunityScreen(
                         color = TextPrimary
                     )
                     Text(
-                        text = "Community",
+                        text = "Fitness Community",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = TextPrimary
                     )
                     Text(
                         text = "➕",
-                        fontSize = 24.sp,
+                        fontSize = 20.sp,
                         color = TextPrimary
                     )
                 }
@@ -90,7 +90,7 @@ fun CommunityScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 
                 Text(
-                    text = "Fitness Group Chat",
+                    text = "Today's Discussion",
                     fontSize = 16.sp,
                     color = TextSecondary
                 )

@@ -26,12 +26,16 @@ import com.example.gymladz.ui.components.LoadingIndicator
 import com.example.gymladz.ui.theme.*
 import com.example.gymladz.ui.viewmodel.ExerciseUiState
 import com.example.gymladz.ui.viewmodel.ExerciseViewModel
+import java.text.SimpleDateFormat
+import java.util.*
+import com.example.gymladz.data.Exercise
 
 @Composable
 fun ExerciseListScreen(
-    modifier: Modifier = Modifier,
-    viewModel: ExerciseViewModel = viewModel()
+    onExerciseClick: (Exercise) -> Unit = {},
+    modifier: Modifier = Modifier
 ) {
+    val viewModel: ExerciseViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
     var selectedCategory by remember { mutableStateOf("All") }
     var searchQuery by remember { mutableStateOf("") }
@@ -61,40 +65,59 @@ fun ExerciseListScreen(
                     .fillMaxWidth()
                     .padding(24.dp)
             ) {
-                // Top Bar
+                // Top Bar with Date
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = "←",
-                        fontSize = 24.sp,
-                        color = TextPrimary
-                    )
-                    Text(
-                        text = "☰",
-                        fontSize = 24.sp,
-                        color = TextPrimary
-                    )
+                    Column {
+                        Text(
+                            text = getCurrentDate(),
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = TextPrimary.copy(alpha = 0.7f)
+                        )
+                        Text(
+                            text = "GymLadz",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = TextPrimary
+                        )
+                    }
+                    
+                    // Notification icon
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .background(
+                                color = SurfaceWhite,
+                                shape = androidx.compose.foundation.shape.CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "🔔",
+                            fontSize = 20.sp
+                        )
+                    }
                 }
                 
                 Spacer(modifier = Modifier.height(24.dp))
                 
-                // Greeting
+                // Dynamic Greeting
                 Text(
-                    text = "GOOD MORNING!",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = TextPrimary.copy(alpha = 0.7f),
-                    letterSpacing = 1.sp
+                    text = getGreeting(),
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = TextPrimary
                 )
                 
                 Text(
-                    text = "Rachel",
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = TextPrimary
+                    text = "Ready to crush your fitness goals?",
+                    fontSize = 14.sp,
+                    color = TextPrimary.copy(alpha = 0.6f),
+                    modifier = Modifier.padding(top = 4.dp)
                 )
                 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -167,7 +190,10 @@ fun ExerciseListScreen(
                         }
                         
                         items(filteredExercises) { exercise ->
-                            ExerciseCard(exercise = exercise)
+                            ExerciseCard(
+                                exercise = exercise,
+                                onClick = { onExerciseClick(exercise) }
+                            )
                         }
                         
                         // Bottom padding for nav bar
@@ -203,7 +229,7 @@ fun SearchBar(
         )
         Spacer(modifier = Modifier.width(12.dp))
         Text(
-            text = if (query.isEmpty()) "What do you want to do?" else query,
+            text = if (query.isEmpty()) "Search exercises..." else query,
             fontSize = 15.sp,
             color = if (query.isEmpty()) TextSecondary else TextPrimary,
             modifier = Modifier.weight(1f)
@@ -232,4 +258,20 @@ fun CategoryChip(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)
         )
     }
+}
+
+// Helper Functions
+private fun getGreeting(): String {
+    val calendar = Calendar.getInstance()
+    return when (calendar.get(Calendar.HOUR_OF_DAY)) {
+        in 0..11 -> "Good Morning!"
+        in 12..16 -> "Good Afternoon!"
+        in 17..20 -> "Good Evening!"
+        else -> "Good Night!"
+    }
+}
+
+private fun getCurrentDate(): String {
+    val dateFormat = SimpleDateFormat("EEEE, MMM d", Locale.getDefault())
+    return dateFormat.format(Date())
 }
