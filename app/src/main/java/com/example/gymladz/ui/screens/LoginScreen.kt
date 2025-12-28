@@ -36,15 +36,7 @@ fun LoginScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        OrangePeach,
-                        OrangeLight,
-                        BackgroundLight
-                    )
-                )
-            )
+            .background(DarkTealBackground)
     ) {
         Column(
             modifier = Modifier
@@ -85,11 +77,11 @@ fun LoginScreen(
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = OrangePeach,
+                    focusedBorderColor = GreenPrimary,
                     unfocusedBorderColor = TextSecondary,
                     focusedTextColor = TextPrimary,
                     unfocusedTextColor = TextPrimary,
-                    focusedLabelColor = OrangePeach,
+                    focusedLabelColor = GreenPrimary,
                     unfocusedLabelColor = TextSecondary
                 )
             )
@@ -108,11 +100,11 @@ fun LoginScreen(
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = OrangePeach,
+                    focusedBorderColor = GreenPrimary,
                     unfocusedBorderColor = TextSecondary,
                     focusedTextColor = TextPrimary,
                     unfocusedTextColor = TextPrimary,
-                    focusedLabelColor = OrangePeach,
+                    focusedLabelColor = GreenPrimary,
                     unfocusedLabelColor = TextSecondary
                 )
             )
@@ -152,7 +144,7 @@ fun LoginScreen(
                     .fillMaxWidth()
                     .height(56.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = OrangePeach),
+                colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary),
                 enabled = !isLoading
             ) {
                 if (isLoading) {

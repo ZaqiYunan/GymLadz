@@ -53,15 +53,7 @@ fun ExerciseDetailScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        OrangePeach,
-                        OrangeLight,
-                        BackgroundLight
-                    )
-                )
-            )
+            .background(DarkTealBackground)
     ) {
         LazyColumn(
             modifier = Modifier
@@ -98,7 +90,7 @@ fun ExerciseDetailScreen(
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(containerColor = SurfaceWhite),
+                    colors = CardDefaults.cardColors(containerColor = SurfaceDark),
                     elevation = CardDefaults.cardElevation(4.dp)
                 ) {
                     Column(
@@ -148,7 +140,7 @@ fun ExerciseDetailScreen(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = OrangePeach.copy(alpha = 0.2f)
+                            containerColor = GreenPrimary.copy(alpha = 0.2f)
                         )
                     ) {
                         Row(
@@ -169,7 +161,7 @@ fun ExerciseDetailScreen(
                                     text = "${pb.maxReps} reps",
                                     fontSize = 24.sp,
                                     fontWeight = FontWeight.Bold,
-                                    color = OrangePeach
+                                    color = GreenPrimary
                                 )
                             }
                             Text(
@@ -236,7 +228,7 @@ fun ExerciseDetailScreen(
                 .padding(start = 24.dp, end = 24.dp, bottom = 100.dp)
                 .height(56.dp),
             shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = OrangePeach)
+            colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary)
         ) {
             Text(
                 text = "Start Workout ($selectedReps reps)",
@@ -259,7 +251,7 @@ fun RepOptionButton(
         modifier = modifier.height(60.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (isSelected) OrangePeach else SurfaceWhite
+            containerColor = if (isSelected) GreenPrimary else SurfaceDark
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = if (isSelected) 6.dp else 2.dp
@@ -305,7 +297,7 @@ fun SessionCard(session: WorkoutSession) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = SurfaceWhite),
+        colors = CardDefaults.cardColors(containerColor = SurfaceDark),
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
         Row(

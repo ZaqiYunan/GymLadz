@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gymladz.ui.theme.OrangePeach
+import com.example.gymladz.ui.theme.GreenPrimary
 import com.example.gymladz.ui.theme.TextPrimary
 
 @Composable
@@ -26,7 +26,7 @@ fun LoadingIndicator(
         ) {
             CircularProgressIndicator(
                 modifier = Modifier.size(48.dp),
-                color = OrangePeach
+                color = GreenPrimary
             )
             Text(
                 text = "Loading exercises...",

@@ -67,15 +67,7 @@ fun PoseDetectionScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        OrangePeach,
-                        OrangeLight,
-                        BackgroundLight
-                    )
-                )
-            )
+            .background(DarkTealBackground)
     ) {
         Column(
             modifier = Modifier
@@ -194,7 +186,7 @@ fun PoseDetectionScreen(
                                         modifier = Modifier
                                             .size(100.dp)
                                             .background(
-                                                color = OrangePeach.copy(alpha = 0.9f),
+                                                color = GreenPrimary.copy(alpha = 0.9f),
                                                 shape = CircleShape
                                             ),
                                         contentAlignment = Alignment.Center
@@ -288,7 +280,7 @@ fun PoseDetectionScreen(
                         .height(56.dp),
                     shape = RoundedCornerShape(16.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (isTracking) Color(0xFFF44336) else OrangePeach
+                        containerColor = if (isTracking) Color(0xFFF44336) else GreenPrimary
                     )
                 ) {
                     Text(
@@ -311,7 +303,7 @@ fun CameraPermissionRequest(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = SurfaceWhite
+            containerColor = SurfaceDark
         ),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
@@ -341,7 +333,7 @@ fun CameraPermissionRequest(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = OrangePeach
+                    containerColor = GreenPrimary
                 )
             ) {
                 Text(
@@ -373,7 +365,7 @@ fun ExerciseTypeButton(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (isSelected) OrangePeach else SurfaceWhite
+            containerColor = if (isSelected) GreenPrimary else SurfaceDark
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = if (isSelected) 8.dp else 2.dp

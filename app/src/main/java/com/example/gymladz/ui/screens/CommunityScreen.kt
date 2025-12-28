@@ -48,9 +48,9 @@ fun CommunityScreen(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        OrangePeach,
-                        OrangeLight,
-                        BackgroundLight
+                        GreenPrimary,
+                        GreenLight,
+                        BlackLight
                     )
                 )
             )
@@ -121,7 +121,7 @@ fun CommunityScreen(
                     .padding(16.dp),
                 shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = SurfaceWhite
+                    containerColor = SurfaceDark
                 ),
                 elevation = CardDefaults.cardElevation(4.dp)
             ) {
@@ -146,13 +146,13 @@ fun CommunityScreen(
                         modifier = Modifier
                             .size(40.dp)
                             .clip(CircleShape)
-                            .background(OrangePeach),
+                            .background(GreenPrimary),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = "➤",
                             fontSize = 20.sp,
-                            color = TextLight
+                            color = TextPrimary
                         )
                     }
                 }
@@ -175,14 +175,14 @@ fun MessageBubble(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape)
-                    .background(NavyBlue),
+                    .background(BlackSecondary),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = message.sender.first().toString(),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = TextLight
+                    color = TextPrimary
                 )
             }
             Spacer(modifier = Modifier.width(8.dp))
@@ -210,7 +210,7 @@ fun MessageBubble(
                     bottomEnd = 16.dp
                 ),
                 colors = CardDefaults.cardColors(
-                    containerColor = if (message.isCurrentUser) OrangePeach else SurfaceWhite
+                    containerColor = if (message.isCurrentUser) GreenPrimary else SurfaceDark
                 ),
                 elevation = CardDefaults.cardElevation(2.dp)
             ) {

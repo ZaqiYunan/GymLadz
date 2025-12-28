@@ -16,8 +16,8 @@ class EnhancedExerciseCounter(private val exerciseType: ExerciseType) {
     private var lastStateChangeTime = System.currentTimeMillis()
     private val biomechanics = ExerciseDatabase.getExerciseData(exerciseType)
     
-    // Minimum time between reps to avoid double counting (REDUCED for faster response)
-    private val minRepDuration = 400L  // Reduced from 600L
+    // Minimum time between reps to avoid double counting (ULTRA LOW for maximum responsiveness)
+    private val minRepDuration = 200L  // Ultra-low for instant detection
     
     // Confidence tracking (RELAXED for easier detection)
     private var consecutiveGoodFrames = 0
@@ -42,8 +42,8 @@ class EnhancedExerciseCounter(private val exerciseType: ExerciseType) {
             ExerciseType.JUMPING_JACKS -> detectJumpingJacks(pose)
         }
         
-        // RELAXED: Lower confidence threshold (0.4 instead of 0.65)
-        if (confidence >= 0.4f) {
+        // ULTRA RELAXED: Very low confidence threshold for maximum sensitivity
+        if (confidence >= 0.25f) {
             consecutiveGoodFrames++
         } else {
             consecutiveGoodFrames = 0
@@ -83,8 +83,8 @@ class EnhancedExerciseCounter(private val exerciseType: ExerciseType) {
             rightShoulder, rightElbow, rightWrist
         )
         
-        // RELAXED: Lower visibility threshold (0.3 instead of 0.65)
-        if (landmarks.any { !AngleCalculator.isLandmarkVisible(it, 0.3f) }) {
+        // ULTRA RELAXED: Very low visibility threshold for maximum sensitivity
+        if (landmarks.any { !AngleCalculator.isLandmarkVisible(it, 0.2f) }) {
             return Pair(RepState.TRANSITIONING, 0.0f)
         }
         
@@ -104,10 +104,10 @@ class EnhancedExerciseCounter(private val exerciseType: ExerciseType) {
         val avgLandmarkConfidence = landmarks.mapNotNull { it?.inFrameLikelihood }
             .average().toFloat()
         
-        // RELAXED: More lenient angle thresholds
+        // ULTRA SENSITIVE: Very wide angle ranges for easy detection
         val state = when {
-            avgElbowAngle <= 110 -> RepState.DOWN  // Relaxed from 100
-            avgElbowAngle >= 150 -> RepState.UP    // Relaxed from 160
+            avgElbowAngle <= 120 -> RepState.DOWN  // Very wide range
+            avgElbowAngle >= 140 -> RepState.UP    // Very wide range
             else -> RepState.TRANSITIONING
         }
         
@@ -132,8 +132,8 @@ class EnhancedExerciseCounter(private val exerciseType: ExerciseType) {
             rightHip, rightKnee, rightAnkle
         )
         
-        // RELAXED: Lower visibility threshold
-        if (landmarks.any { !AngleCalculator.isLandmarkVisible(it, 0.3f) }) {
+        // ULTRA RELAXED: Very low visibility threshold
+        if (landmarks.any { !AngleCalculator.isLandmarkVisible(it, 0.2f) }) {
             return Pair(RepState.TRANSITIONING, 0.0f)
         }
         
@@ -152,10 +152,10 @@ class EnhancedExerciseCounter(private val exerciseType: ExerciseType) {
         val avgLandmarkConfidence = landmarks.mapNotNull { it?.inFrameLikelihood }
             .average().toFloat()
         
-        // RELAXED: More lenient angle thresholds
+        // ULTRA SENSITIVE: Very wide angle ranges for easy detection
         val state = when {
-            avgKneeAngle <= 120 -> RepState.DOWN  // Relaxed from 100
-            avgKneeAngle >= 150 -> RepState.UP    // Relaxed from 160
+            avgKneeAngle <= 130 -> RepState.DOWN  // Very wide range for easier squat detection
+            avgKneeAngle >= 140 -> RepState.UP    // Very wide range
             else -> RepState.TRANSITIONING
         }
         

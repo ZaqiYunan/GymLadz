@@ -12,26 +12,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = OrangePeach,
-    secondary = TealAccent,
-    tertiary = CoralAccent,
-    background = NavyBlueDark,
-    surface = NavyBlue
+    primary = BrightCyan,
+    secondary = Turquoise,
+    tertiary = DarkCyan,
+    background = DarkTealBackground,
+    surface = DarkTealSurface,
+    onPrimary = TextWhite,
+    onSecondary = TextWhite,
+    onTertiary = TextWhite,
+    onBackground = TextWhite,
+    onSurface = TextWhite,
+    error = ErrorRed,
+    onError = TextWhite
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = OrangePeach,
-    secondary = TealAccent,
-    tertiary = PurpleAccent,
-    background = BackgroundLight,
-    surface = SurfaceWhite
+    primary = BrightCyan,
+    secondary = Turquoise,
+    tertiary = DarkCyan,
+    background = DarkTealBackground,
+    surface = DarkTealSurface,
+    onPrimary = TextWhite,
+    onSecondary = TextWhite,
+    onTertiary = TextWhite,
+    onBackground = TextWhite,
+    onSurface = TextWhite,
+    error = ErrorRed,
+    onError = TextWhite
 )
 
 @Composable
 fun GymLadzTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = true,  // Always use dark theme
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,  // Disable dynamic colors for consistent theming
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

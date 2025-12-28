@@ -155,7 +155,7 @@ fun ActiveWorkoutScreen(
                 Spacer(modifier = Modifier.height(24.dp))
                 Button(
                     onClick = { permissionLauncher.launch(Manifest.permission.CAMERA) },
-                    colors = ButtonDefaults.buttonColors(containerColor = OrangePeach)
+                    colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary)
                 ) {
                     Text("Grant Permission")
                 }
@@ -241,7 +241,7 @@ fun ActiveWorkoutScreen(
                             Box(
                                 modifier = Modifier
                                     .size(60.dp)
-                                    .background(OrangePeach, CircleShape),
+                                    .background(GreenPrimary, CircleShape),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
@@ -273,7 +273,7 @@ fun ActiveWorkoutScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(8.dp),
-                        color = OrangePeach,
+                        color = GreenPrimary,
                         trackColor = Color.White.copy(alpha = 0.3f)
                     )
                     
@@ -307,7 +307,7 @@ fun ActiveWorkoutScreen(
                         .height(56.dp),
                     shape = RoundedCornerShape(16.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (isTracking) Color(0xFFF44336) else OrangePeach
+                        containerColor = if (isTracking) Color(0xFFF44336) else GreenPrimary
                     )
                 ) {
                     Text(
@@ -385,7 +385,7 @@ fun WorkoutCompleteDialog(
         confirmButton = {
             Button(
                 onClick = onSave,
-                colors = ButtonDefaults.buttonColors(containerColor = OrangePeach)
+                colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary)
             ) {
                 Text("Save & Continue")
             }
@@ -405,7 +405,7 @@ fun StatItem(label: String, value: String) {
             text = value,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = OrangePeach
+            color = GreenPrimary
         )
         Text(
             text = label,

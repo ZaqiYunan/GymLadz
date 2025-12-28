@@ -3,22 +3,17 @@ package com.example.gymladz.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gymladz.ui.theme.NavyBlue
-import com.example.gymladz.ui.theme.OrangePeach
-import com.example.gymladz.ui.theme.TextLight
+import com.example.gymladz.ui.theme.BlackSecondary
+import com.example.gymladz.ui.theme.GreenPrimary
+import com.example.gymladz.ui.theme.TextPrimary
 
 @Composable
 fun BottomNavBar(
@@ -41,7 +36,7 @@ fun BottomNavBar(
                     shape = RoundedCornerShape(35.dp)
                 )
                 .background(
-                    color = NavyBlue,
+                    color = BlackSecondary,
                     shape = RoundedCornerShape(35.dp)
                 )
                 .padding(horizontal = 24.dp),
@@ -88,7 +83,7 @@ fun NavItem(
         Text(
             text = icon,
             fontSize = 24.sp,
-            color = if (isSelected) OrangePeach else TextLight.copy(alpha = 0.5f)
+            color = if (isSelected) GreenPrimary else TextPrimary.copy(alpha = 0.5f)
         )
     }
 }

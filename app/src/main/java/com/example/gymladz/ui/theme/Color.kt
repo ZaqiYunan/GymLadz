@@ -2,25 +2,49 @@ package com.example.gymladz.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Warm gradient colors from design
-val OrangePeach = Color(0xFFFDB777)
-val OrangeLight = Color(0xFFFFCB9A)
-val OrangeDark = Color(0xFFF49D5E)
+// Dark Teal/Cyan Theme - GymLadz Modern Dark Mode
 
-// Navy blue for bottom navigation
-val NavyBlue = Color(0xFF2D3250)
-val NavyBlueDark = Color(0xFF1F2437)
+// Background Colors
+val DarkTealBackground = Color(0xFF0D2726)      // Main background
+val DarkTealSurface = Color(0xFF1A3635)         // Cards, elevated surfaces
+val DarkTealElevated = Color(0xFF234140)        // Hover states, elevated cards
 
-// Accent colors
-val TealAccent = Color(0xFF4ECDC4)
-val CoralAccent = Color(0xFFFF6B6B)
-val PurpleAccent = Color(0xFF9B59B6)
+// Accent Colors
+val BrightCyan = Color(0xFF00E5CC)              // Primary actions, highlights
+val Turquoise = Color(0xFF1DE9B6)               // Secondary accent
+val DarkCyan = Color(0xFF004D47)                // Borders, dividers
+val CyanGlow = Color(0x3300E5CC)                // Glowing effects (20% opacity)
 
-// Background and surface colors
-val BackgroundLight = Color(0xFFF5F5F5)
-val SurfaceWhite = Color(0xFFFFFFFF)
+// Text Colors
+val TextWhite = Color(0xFFFFFFFF)               // Primary text
+val TextGray = Color(0xFF8B9E9D)                // Secondary text
+val TextMuted = Color(0xFF5A6B6A)               // Tertiary text
 
-// Text colors
-val TextPrimary = Color(0xFF2D3250)
-val TextSecondary = Color(0xFF6B7280)
-val TextLight = Color(0xFFFFFFFF)
+// Semantic Colors
+val SuccessGreen = Color(0xFF4CAF50)            // Success states
+val WarningOrange = Color(0xFFFF9800)           // Warnings
+val ErrorRed = Color(0xFFE53935)                // Errors
+
+// Legacy compatibility (for gradual migration from orange/peach theme)
+val OrangePeach = BrightCyan
+val OrangeLight = Turquoise
+val OrangeDark = DarkCyan
+val BackgroundLight = DarkTealBackground
+val SurfaceWhite = DarkTealSurface
+val SurfaceLight = DarkTealElevated
+val TextPrimary = TextWhite
+val TextSecondary = TextGray
+val TextLight = TextWhite
+
+// Legacy compatibility (for gradual migration from green/black theme)
+val GreenPrimary = BrightCyan
+val GreenLight = Turquoise
+val GreenDark = DarkCyan
+val GreenAccent = BrightCyan
+val LimeAccent = Turquoise
+val MintAccent = BrightCyan
+val BlackPrimary = DarkTealBackground
+val BlackSecondary = DarkTealSurface
+val BlackLight = DarkTealElevated
+val BackgroundDark = DarkTealBackground
+val SurfaceDark = DarkTealSurface

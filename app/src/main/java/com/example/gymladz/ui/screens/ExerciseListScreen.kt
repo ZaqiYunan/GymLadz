@@ -46,15 +46,7 @@ fun ExerciseListScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        OrangePeach,
-                        OrangeLight,
-                        BackgroundLight
-                    )
-                )
-            )
+            .background(DarkTealBackground)
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -91,7 +83,7 @@ fun ExerciseListScreen(
                         modifier = Modifier
                             .size(40.dp)
                             .background(
-                                color = SurfaceWhite,
+                                color = SurfaceDark,
                                 shape = androidx.compose.foundation.shape.CircleShape
                             ),
                         contentAlignment = Alignment.Center
@@ -217,7 +209,7 @@ fun SearchBar(
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = SurfaceWhite,
+                color = DarkTealSurface,
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(horizontal = 16.dp, vertical = 14.dp),
@@ -247,14 +239,14 @@ fun CategoryChip(
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(20.dp),
-        color = if (isSelected) NavyBlue else SurfaceWhite,
+        color = if (isSelected) BrightCyan else DarkTealSurface,
         onClick = onClick
     ) {
         Text(
             text = category,
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
-            color = if (isSelected) TextLight else TextPrimary,
+            color = if (isSelected) DarkTealBackground else TextWhite,
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)
         )
     }

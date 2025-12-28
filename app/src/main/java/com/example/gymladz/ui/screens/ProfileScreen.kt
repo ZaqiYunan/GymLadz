@@ -17,22 +17,37 @@ import com.example.gymladz.ui.theme.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
+import com.example.gymladz.data.user.UserRepository
+import com.example.gymladz.data.workout.WorkoutRepository
+import com.example.gymladz.data.workout.WorkoutSession
+
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier
 ) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val userRepository = remember { com.example.gymladz.data.user.UserRepository(context) }
+    val workoutRepository = remember { com.example.gymladz.data.workout.WorkoutRepository(context) }
+    
+    // Get current username
+    val currentUsername by userRepository.currentUsername.collectAsState(initial = null)
+    
+    // Get workout sessions
+    val workoutSessions by workoutRepository.getWorkoutSessions().collectAsState(initial = emptyList())
+    
+    // Calculate stats
+    val totalWorkouts = workoutSessions.size
+    val totalCalories = workoutSessions.sumOf { it.caloriesBurned }
+    val workoutStreak = calculateStreak(workoutSessions)
+    
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        OrangePeach,
-                        OrangeLight,
-                        BackgroundLight
-                    )
-                )
-            )
+            .background(DarkTealBackground)
     ) {
         Column(
             modifier = Modifier
@@ -77,7 +92,7 @@ fun ProfileScreen(
                 modifier = Modifier
                     .size(120.dp)
                     .clip(CircleShape)
-                    .background(NavyBlue),
+                    .background(DarkTealSurface),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -90,7 +105,7 @@ fun ProfileScreen(
             
             // Name
             Text(
-                text = System.getProperty("user.name")?.capitalize() ?: "User",
+                text = currentUsername?.capitalize() ?: "User",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = TextPrimary
@@ -111,19 +126,19 @@ fun ProfileScreen(
             ) {
                 StatCard(
                     title = "Workouts",
-                    value = "42",
+                    value = totalWorkouts.toString(),
                     emoji = "🏋️",
                     modifier = Modifier.weight(1f)
                 )
                 StatCard(
                     title = "Calories",
-                    value = "12.5k",
+                    value = formatCalories(totalCalories),
                     emoji = "🔥",
                     modifier = Modifier.weight(1f)
                 )
                 StatCard(
                     title = "Streak",
-                    value = "7 days",
+                    value = "$workoutStreak days",
                     emoji = "⚡",
                     modifier = Modifier.weight(1f)
                 )
@@ -136,7 +151,7 @@ fun ProfileScreen(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = SurfaceWhite
+                    containerColor = DarkTealSurface
                 ),
                 elevation = CardDefaults.cardElevation(4.dp)
             ) {
@@ -152,9 +167,14 @@ fun ProfileScreen(
                     
                     Spacer(modifier = Modifier.height(16.dp))
                     
+                    // Calculate progress based on actual data
+                    val weightLossProgress = calculateWeightLossProgress(totalWorkouts)
+                    val muscleBuildProgress = calculateMuscleBuildProgress(totalCalories)
+                    val flexibilityProgress = calculateFlexibilityProgress(workoutSessions)
+                    
                     GoalItem(
                         title = "Weight Loss",
-                        progress = 0.7f,
+                        progress = weightLossProgress,
                         emoji = "🎯"
                     )
                     
@@ -162,7 +182,7 @@ fun ProfileScreen(
                     
                     GoalItem(
                         title = "Build Muscle",
-                        progress = 0.5f,
+                        progress = muscleBuildProgress,
                         emoji = "💪"
                     )
                     
@@ -170,7 +190,7 @@ fun ProfileScreen(
                     
                     GoalItem(
                         title = "Flexibility",
-                        progress = 0.3f,
+                        progress = flexibilityProgress,
                         emoji = "🧘"
                     )
                 }
@@ -190,7 +210,7 @@ fun StatCard(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = SurfaceWhite
+            containerColor = SurfaceDark
         ),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
@@ -249,7 +269,7 @@ fun GoalItem(
                 text = "${(progress * 100).toInt()}%",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
-                color = OrangePeach
+                color = BrightCyan
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
@@ -259,8 +279,8 @@ fun GoalItem(
                 .fillMaxWidth()
                 .height(8.dp)
                 .clip(RoundedCornerShape(4.dp)),
-            color = OrangePeach,
-            trackColor = BackgroundLight
+            color = BrightCyan,
+            trackColor = DarkTealElevated
         )
     }
 }
@@ -274,4 +294,104 @@ private fun getCurrentProfileDate(): String {
 private fun getCurrentYear(): String {
     val calendar = Calendar.getInstance()
     return calendar.get(Calendar.YEAR).toString()
+}
+
+// Calculate workout streak (consecutive days with workouts)
+private fun calculateStreak(sessions: List<WorkoutSession>): Int {
+    if (sessions.isEmpty()) return 0
+    
+    val calendar = Calendar.getInstance()
+    val today = calendar.apply {
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }.timeInMillis
+    
+    // Group sessions by date
+    val sessionsByDate = sessions
+        .groupBy { session ->
+            val sessionCal = Calendar.getInstance().apply {
+                timeInMillis = session.timestamp
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }.timeInMillis
+            sessionCal
+        }
+        .keys
+        .sortedDescending()
+    
+    if (sessionsByDate.isEmpty()) return 0
+    
+    // Check if there's a workout today or yesterday
+    val oneDayMs = 24 * 60 * 60 * 1000L
+    val mostRecentWorkout = sessionsByDate.first()
+    
+    if (mostRecentWorkout > today + oneDayMs) {
+        // Workout is in future, doesn't count
+        return 0
+    }
+    
+    if (mostRecentWorkout < today - oneDayMs) {
+        // Last workout was more than 1 day ago, streak broken
+        return 0
+    }
+    
+    // Count consecutive days
+    var streak = 1
+    var currentDate = sessionsByDate.first()
+    
+    for (i in 1 until sessionsByDate.size) {
+        val prevDate = sessionsByDate[i]
+        val daysDiff = (currentDate - prevDate) / oneDayMs
+        
+        if (daysDiff == 1L) {
+            streak++
+            currentDate = prevDate
+        } else {
+            break
+        }
+    }
+    
+    return streak
+}
+
+// Format calories (e.g., 12500 -> "12.5k")
+private fun formatCalories(calories: Int): String {
+    return when {
+        calories >= 1000 -> {
+            val k = calories / 1000.0
+            if (k % 1.0 == 0.0) "${k.toInt()}k"
+            else String.format("%.1fk", k)
+        }
+        else -> calories.toString()
+    }
+}
+
+// Calculate weight loss progress (based on workouts completed)
+// Target: 30 workouts for full progress
+private fun calculateWeightLossProgress(totalWorkouts: Int): Float {
+    val target = 30
+    return (totalWorkouts.toFloat() / target).coerceIn(0f, 1f)
+}
+
+// Calculate muscle build progress (based on calories burned)
+// Target: 10,000 calories for full progress
+private fun calculateMuscleBuildProgress(totalCalories: Int): Float {
+    val target = 10000
+    return (totalCalories.toFloat() / target).coerceIn(0f, 1f)
+}
+
+// Calculate flexibility progress (based on variety of exercises)
+private fun calculateFlexibilityProgress(sessions: List<WorkoutSession>): Float {
+    if (sessions.isEmpty()) return 0f
+    
+    // Count unique exercises
+    val uniqueExercises = sessions.map { it.exerciseName }.distinct().size
+    
+    // Target: 10 different exercises for full progress
+    val target = 10
+    return (uniqueExercises.toFloat() / target).coerceIn(0f, 1f)
 }

@@ -33,15 +33,7 @@ fun SettingsScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        OrangePeach,
-                        OrangeLight,
-                        BackgroundLight
-                    )
-                )
-            )
+            .background(DarkTealBackground)
     ) {
         Column(
             modifier = Modifier
@@ -75,7 +67,7 @@ fun SettingsScreen(
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(containerColor = SurfaceWhite),
+                    colors = CardDefaults.cardColors(containerColor = SurfaceDark),
                     elevation = CardDefaults.cardElevation(4.dp)
                 ) {
                     Row(
@@ -115,8 +107,8 @@ fun SettingsScreen(
                             checked = notificationsEnabled,
                             onCheckedChange = { notificationsEnabled = it },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = OrangePeach,
-                                checkedTrackColor = OrangePeach.copy(alpha = 0.5f)
+                                checkedThumbColor = GreenPrimary,
+                                checkedTrackColor = GreenPrimary.copy(alpha = 0.5f)
                             )
                         )
                     }
@@ -131,8 +123,8 @@ fun SettingsScreen(
                             checked = darkModeEnabled,
                             onCheckedChange = { darkModeEnabled = it },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = OrangePeach,
-                                checkedTrackColor = OrangePeach.copy(alpha = 0.5f)
+                                checkedThumbColor = GreenPrimary,
+                                checkedTrackColor = GreenPrimary.copy(alpha = 0.5f)
                             )
                         )
                     }
@@ -230,7 +222,7 @@ fun SettingsSection(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
-                containerColor = SurfaceWhite
+                containerColor = SurfaceDark
             ),
             elevation = CardDefaults.cardElevation(4.dp)
         ) {

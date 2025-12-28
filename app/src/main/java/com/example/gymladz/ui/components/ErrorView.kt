@@ -12,10 +12,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gymladz.ui.theme.CoralAccent
-import com.example.gymladz.ui.theme.OrangePeach
-import com.example.gymladz.ui.theme.TextLight
+import com.example.gymladz.ui.theme.GreenPrimary
 import com.example.gymladz.ui.theme.TextPrimary
+import com.example.gymladz.ui.theme.BlackPrimary
 
 @Composable
 fun ErrorView(
@@ -52,7 +51,7 @@ fun ErrorView(
             Button(
                 onClick = onRetry,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = OrangePeach
+                    containerColor = GreenPrimary
                 ),
                 shape = RoundedCornerShape(16.dp)
             ) {
@@ -60,7 +59,7 @@ fun ErrorView(
                     text = "Try Again",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = TextLight,
+                    color = BlackPrimary,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
                 )
             }
